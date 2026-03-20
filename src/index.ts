@@ -1,6 +1,7 @@
-import { TextChannel, WebhookClient } from 'discord.js';
 import * as http from 'http';
+import { WebhookClient } from 'discord.js';
 import { type Version } from './types';
+import { VERSIONS } from './version';
 import config from '../config.json';
 
 const client = new WebhookClient({
@@ -8,27 +9,8 @@ const client = new WebhookClient({
 })
 
 const URL = "http://us.patch.battle.net:1119/";
-const VERSIONS = [
-    {
-        version: "Live",
-        url_param: "wow"
-    },
-    {
-        version: "PTR",
-        url_param: "wowt"
-    },
-    {
-        version: "Beta",
-        url_param: "wow_beta"
-    }
-];
 
-const TARGET_CHANNEL = "automated-messages";
-const DEBUG_CHANNEL = "purple-parlor";
 const DEBUG = false;
-
-let automatedMessage: TextChannel | null;
-let purpleParlor: TextChannel | null;
 
 const clients: Map<string, Version> = new Map();
 
@@ -90,7 +72,7 @@ function fetchCDN() {
                         else {
                             if (DEBUG) client.send(`Now new client build found for ${version}.`);
                         }
-                    } 
+                    }
                 } catch (err) {
                     client.send("ERROR: " + JSON.stringify(err));
                 }
