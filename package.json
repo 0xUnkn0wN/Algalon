@@ -1,18 +1,26 @@
 {
   "name": "algalon",
   "version": "1.0.0",
-  "description": "",
+  "description": "Fork of https://github.com/Ellypse/Algalon",
   "main": "index.js",
   "scripts": {
-    "debug": "node index.js",
-    "start": "./node_modules/.bin/forever start --uid \"alg\" -a index.js",
-    "stop": "./node_modules/.bin/forever stop alg"
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "pm2:start": "pm2 start ecosystem.config.cjs",
+    "pm2:logs": "pm2 logs discord-bot",
+    "pm2:stop": "pm2 stop discord-bot",
+    "pm2:restart": "pm2 restart discord-bot"
   },
-  "author": "Ellypse",
+  "author": "0xUnkn0wN",
   "license": "ISC",
   "dependencies": {
-    "discord.io": "^2.5.3",
-    "discord.js": "^11.3.0",
-    "forever": "^0.15.3"
+    "discord.js": "^14.25.1",
+    "pm2": "^6.0.14"
+  },
+  "devDependencies": {
+    "@types/node": "^25.5.0",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
   }
 }

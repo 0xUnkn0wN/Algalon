@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const http = require('http');
-const auth = require('./auth.json');
+const { token, interval } = require('./config.json');
 
 const URL = "http://us.patch.battle.net:1119/";
 const VERSIONS = [
@@ -80,7 +80,9 @@ client.on('ready', function () {
         }
     });
     fetchCDN();
-    setInterval(fetchCDN, 5 * 60 * 1000);
+    
+    // interval in config is provided in seconds
+    setInterval(fetchCDN,  interval * 1000);
 });
 
 client.login(auth.token);
