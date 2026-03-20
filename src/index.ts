@@ -1,5 +1,5 @@
 import * as http from 'http';
-import { WebhookClient } from 'discord.js';
+import { EmbedBuilder, WebhookClient } from 'discord.js';
 import { type Version } from './types';
 import { VERSIONS } from './version';
 import config from '../config.json';
@@ -27,7 +27,7 @@ function fetchCDN() {
                 body += chunk;
             });
 
-            res.on('end', () => {
+            res.on('end', async () => {
                 try {
                     if (DEBUG) client.send(`Received results for ${version}`);
 
@@ -44,7 +44,19 @@ function fetchCDN() {
 
 
                     if (!clients.has(version)) {
-                        client.send(`Now observing CDN for client: ${version}. Current build: ${buildText} (${buildNumber})`);
+                       const embed = new EmbedBuilder()
+                            .setTitle(`Observing CDN for ${version}`)
+                            .setDescription(`Now observing Blizzard's CDN for new client builds.`)
+                            .addFields(
+                                { name: "Version", value: version!, inline: true },
+                                { name: "Current Build", value: buildText!, inline: true },
+                                { name: "Build Number", value: buildNumber!, inline: true }
+                            )
+                            .setColor(0xFFA500)
+                            .setTimestamp()
+                            .setFooter({ text: "Blizzard CDN Monitor", iconURL: "https://upload.wikimedia.org/wikipedia/en/5/5e/Blizzard_Entertainment_Logo.svg" });
+
+                        await client.send({ embeds: [embed] });
 
                         const v: Version = {
                             Number: version,
@@ -59,7 +71,19 @@ function fetchCDN() {
 
                         console.log(found.Number, found.Build, buildNumber, buildText)
                         if (found.Number && found.Build < Number(buildNumber)) {
-                            client.send(`A new client build for ${version} was released on Blizzard's CDN: ${buildText} (${buildNumber})`);
+                            const embed = new EmbedBuilder()
+                                .setTitle(`New ${version} Build Released!`)
+                                .setDescription(`A new client build has been released on Blizzard's CDN.`)
+                                .addFields(
+                                    { name: "Version", value: version!, inline: true },
+                                    { name: "Build", value: buildText!, inline: true },
+                                    { name: "Build Number", value: buildNumber!, inline: true }
+                                )
+                                .setColor(0x00AE86)
+                                .setTimestamp()
+                                .setFooter({ text: "Blizzard CDN Monitor", iconURL: "https://upload.wikimedia.org/wikipedia/en/5/5e/Blizzard_Entertainment_Logo.svg" });
+
+                            await client.send({ embeds: [embed] });
 
                             const v: Version = {
                                 Number: version,
@@ -69,12 +93,9 @@ function fetchCDN() {
 
                             clients.set(version, v);
                         }
-                        else {
-                            if (DEBUG) client.send(`Now new client build found for ${version}.`);
-                        }
                     }
                 } catch (err) {
-                    client.send("ERROR: " + JSON.stringify(err));
+                    console.log("Error: %d", JSON.stringify(err))
                 }
             });
         });
