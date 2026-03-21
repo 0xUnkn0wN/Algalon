@@ -13,7 +13,7 @@ A Discord bot that monitors Blizzard's CDN for new World of Warcraft client buil
 
 #### Using an `.env` file (recommended)
 ```bash
-docker run --env-file .env ghcr.io/0xunkn0wn/algalon:sha256-817b39d72ff374d9528dd5bd5d317bd44f868579e5cd7d441216beccaa2e293f
+docker run --env-file .env ghcr.io/0xunkn0wn/algalon@sha256:e8ddb9c7791eb98a19a0b86be60b27ad2f484617aa36360414352d4f34619141
 ```
 
 #### Setting environment variables manually
@@ -21,12 +21,12 @@ docker run --env-file .env ghcr.io/0xunkn0wn/algalon:sha256-817b39d72ff374d9528d
 docker run \
   -e INTERVAL_IN_SEC=10 \
   -e WEBHOOK_URL="http://..." \
-  ghcr.io/0xunkn0wn/algalon:sha256-817b39d72ff374d9528dd5bd5d317bd44f868579e5cd7d441216beccaa2e293f
+  ghcr.io/0xunkn0wn/algalon@sha256:e8ddb9c7791eb98a19a0b86be60b27ad2f484617aa36360414352d4f34619141
 ```
 
 #### Mounting a local `.env` file
 ```bash
-docker run -v $(pwd)/.env:/app/.env ghcr.io/0xunkn0wn/algalon:sha256-817b39d72ff374d9528dd5bd5d317bd44f868579e5cd7d441216beccaa2e293f
+docker run -v $(pwd)/.env:/app/.env ghcr.io/0xunkn0wn/algalon@sha256:e8ddb9c7791eb98a19a0b86be60b27ad2f484617aa36360414352d4f34619141
 ```
 
 ## Credits
