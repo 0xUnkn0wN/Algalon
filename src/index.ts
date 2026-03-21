@@ -1,11 +1,25 @@
 import * as http from 'http';
 import { EmbedBuilder, WebhookClient } from 'discord.js';
+import * as dotenv from 'dotenv';
 import { type Version } from './types';
 import { VERSIONS } from './versions';
-import config from '../config.json';
+
+// Load .env file if present 
+dotenv.config();
+
+const webhookURL = process.env.WEBHOOK_URL || '';
+const interval = Number(process.env.INTERVAL_IN_SEC) || 300;
+
+if (isNaN(interval)) {
+    throw 'interval is not a valid number';
+}
+
+if (webhookURL === "") {
+    throw 'webhook url missing';
+}
 
 const client = new WebhookClient({
-    url: config.webhook,
+    url: webhookURL,
 })
 
 const URL = "http://us.patch.battle.net:1119/";
@@ -105,4 +119,4 @@ function fetchCDN() {
 fetchCDN();
 
 // interval in config is provided in seconds
-setInterval(fetchCDN, 10 * 1000); // configJSON.interval * 1000);
+setInterval(fetchCDN, interval * 1000);
