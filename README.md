@@ -5,7 +5,7 @@ A Discord bot that monitors Blizzard's CDN for new World of Warcraft client buil
 ## Features
 
 - Monitors Blizzard CDN for new WoW client builds (Retail, PTR, Beta, Classic, etc.)
-- Sends notifications via Discord Webhooks or a standard Bot Client
+- Sends notifications via Discord Webhooks
 
 ## Credits
 
