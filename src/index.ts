@@ -1,7 +1,7 @@
 import * as http from 'http';
 import { EmbedBuilder, WebhookClient } from 'discord.js';
 import { type Version } from './types';
-import { VERSIONS } from './version';
+import { VERSIONS } from './versions';
 import config from '../config.json';
 
 const client = new WebhookClient({
