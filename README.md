@@ -9,16 +9,11 @@ A Discord bot that monitors Blizzard's CDN for new World of Warcraft client buil
 
 ## Docker
 
-### Build the image
-```bash
-docker build -t algalon .
-```
-
 ### Run the container
 
 #### Using an `.env` file (recommended)
 ```bash
-docker run --env-file .env algalon
+docker run --env-file .env ghcr.io/0xunkn0wn/algalon:sha256-817b39d72ff374d9528dd5bd5d317bd44f868579e5cd7d441216beccaa2e293f
 ```
 
 #### Setting environment variables manually
@@ -26,12 +21,12 @@ docker run --env-file .env algalon
 docker run \
   -e INTERVAL_IN_SEC=10 \
   -e WEBHOOK_URL="http://..." \
-  algalon
+  ghcr.io/0xunkn0wn/algalon:sha256-817b39d72ff374d9528dd5bd5d317bd44f868579e5cd7d441216beccaa2e293f
 ```
 
 #### Mounting a local `.env` file
 ```bash
-docker run -v $(pwd)/.env:/app/.env algalon
+docker run -v $(pwd)/.env:/app/.env ghcr.io/0xunkn0wn/algalon:sha256-817b39d72ff374d9528dd5bd5d317bd44f868579e5cd7d441216beccaa2e293f
 ```
 
 ## Credits
